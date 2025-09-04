@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { Typography, Box, Grid, Modal, Paper, IconButton } from "@mui/material";
 import * as styles from "./PostsSection.styles";
-import PostCard from "./PostCard";
+// import PostCard from "./PostCard";
 
 // Custom markdown renderer skeleton
 function MarkdownRenderer({ markdown }: { markdown: string }) {
