@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "title": "Yangi o‘quv yili boshlandi",
+    "date": "2025-09-01",
+    "excerpt": "Maktabimizda yangi o‘quv yili tantanali tarzda boshlandi.",
+    "image": "/posts/sample1.jpg",
+    "slug": "yangi-oquv-yili-boshlandi"
+  },
+  {
+    "id": 2,
+    "title": "Fan olimpiadasi g‘oliblari tabriklandi",
+    "date": "2025-08-20",
+    "excerpt": "Viloyat bosqichida g‘olib bo‘lgan o‘quvchilarimiz faxrimiz!",
+    "image": "/posts/sample1.jpg",
+    "slug": "fan-olimpiadasi-goliblari"
+  },
+  {
+    "id": 3,
+    "title": "Yozgi oromgohdan lavhalar",
+    "date": "2025-07-15",
+    "excerpt": "O‘quvchilarimiz uchun maroqli yozgi dam olish tashkil etildi.",
+    "image": "/posts/sample1.jpg",
+    "slug": "yozgi-oromgoh-lavhalari"
+  }
+]
