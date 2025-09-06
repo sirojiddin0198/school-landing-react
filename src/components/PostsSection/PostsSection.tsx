@@ -4,6 +4,15 @@ import { Typography, Box, Grid, Modal, Paper, IconButton } from "@mui/material";
 import * as styles from "./PostsSection.styles";
 // import PostCard from "./PostCard";
 
+interface Post {
+  id: string;
+  title: string;
+  date: string;
+  excerpt: string;
+  image: string;
+  slug: string;
+}
+
 // Custom markdown renderer skeleton
 function MarkdownRenderer({ markdown }: { markdown: string }) {
   // TODO: Replace with real markdown renderer
@@ -11,8 +20,8 @@ function MarkdownRenderer({ markdown }: { markdown: string }) {
 }
 
 const PostsSection = ({ id }: { id?: string }) => {
-  const [posts, setPosts] = useState<any[]>([]);
-  const [selectedPost, setSelectedPost] = useState<any | null>(null);
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [selectedPost, setSelectedPost] = useState<Post | null>(null);
   const [markdown, setMarkdown] = useState<string>("");
   const [open, setOpen] = useState(false);
 
@@ -23,7 +32,7 @@ const PostsSection = ({ id }: { id?: string }) => {
       .catch(console.error);
   }, []);
 
-  const handleOpenPost = async (post: any) => {
+  const handleOpenPost = async (post: Post) => {
     setSelectedPost(post);
     setOpen(true);
     try {
