@@ -27,7 +27,26 @@ function App() {
         }}
       >
         <Toolbar sx={{ maxWidth: 'lg', mx: 'auto', width: '100%' }}>
-          <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 2, width: "100%" }}>
+          <Box sx={{ display: "flex", alignItems: "center", gap: 2, mr: 'auto' }}>
+            <img 
+              src="/uzbekistan-gerb.svg" 
+              alt="O'zbekiston Respublikasi Davlat gerbi" 
+              style={{ 
+                height: '40px', 
+                width: 'auto',
+                filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.3))'
+              }} 
+            />
+            <Box sx={{ 
+              color: 'white', 
+              fontWeight: 'bold', 
+              fontSize: '1.2rem',
+              textShadow: '0 1px 2px rgba(0,0,0,0.3)'
+            }}>
+              O'zbekiston Maktabi
+            </Box>
+          </Box>
+          <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 2 }}>
             <Tooltip title="Bosh sahifa">
               <IconButton
                 color="inherit"
