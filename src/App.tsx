@@ -27,7 +27,35 @@ function App() {
         }}
       >
         <Toolbar sx={{ maxWidth: 'lg', mx: 'auto', width: '100%' }}>
-          <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 2, width: "100%" }}>
+          <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 2, width: "100%" }}>
+            {/* Logo */}
+            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+              <img 
+                src="/school-logo.svg" 
+                alt="Maktab Logosi" 
+                style={{ 
+                  height: "40px", 
+                  width: "40px",
+                  cursor: "pointer"
+                }}
+                onClick={() => scrollToSection("hero")}
+              />
+              <Typography 
+                variant="h6" 
+                sx={{ 
+                  fontWeight: "bold", 
+                  color: "white", 
+                  cursor: "pointer",
+                  display: { xs: "none", sm: "block" }
+                }}
+                onClick={() => scrollToSection("hero")}
+              >
+                39-Maktab
+              </Typography>
+            </Box>
+            
+            {/* Navigation Icons */}
+            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
             <Tooltip title="Bosh sahifa">
               <IconButton
                 color="inherit"
@@ -124,6 +152,7 @@ function App() {
                 <ContactMailIcon />
               </IconButton>
             </Tooltip>
+            </Box>
           </Box>
         </Toolbar>
       </AppBar>
