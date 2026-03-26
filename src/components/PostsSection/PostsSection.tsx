@@ -1,8 +1,9 @@
 
 import { useEffect, useState } from "react";
-import { Typography, Box, Grid, Modal, Paper, IconButton } from "@mui/material";
+import { Typography, Box, Grid, Modal, Paper, IconButton, Alert } from "@mui/material";
 import * as styles from "./PostsSection.styles";
-// import PostCard from "./PostCard";
+import { fetchPosts, fetchPostMarkdown } from "../../utils/fetchMarkdown";
+import type { Post } from "../../utils/fetchMarkdown";
 
 // Custom markdown renderer skeleton
 function MarkdownRenderer({ markdown }: { markdown: string }) {
@@ -11,27 +12,36 @@ function MarkdownRenderer({ markdown }: { markdown: string }) {
 }
 
 const PostsSection = ({ id }: { id?: string }) => {
-  const [posts, setPosts] = useState<any[]>([]);
-  const [selectedPost, setSelectedPost] = useState<any | null>(null);
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [selectedPost, setSelectedPost] = useState<Post | null>(null);
   const [markdown, setMarkdown] = useState<string>("");
   const [open, setOpen] = useState(false);
+  const [postsError, setPostsError] = useState<string | null>(null);
+  const [markdownError, setMarkdownError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch("/posts/posts.json")
-      .then(res => res.json())
-      .then(data => setPosts(data))
-      .catch(console.error);
+    fetchPosts()
+      .then(data => {
+        setPosts(data);
+        setPostsError(null);
+      })
+      .catch((err: Error) => {
+        setPostsError(err.message);
+        console.error(err);
+      });
   }, []);
 
-  const handleOpenPost = async (post: any) => {
+  const handleOpenPost = async (post: Post) => {
     setSelectedPost(post);
     setOpen(true);
+    setMarkdownError(null);
     try {
-      const res = await fetch(`/posts/${post.slug}.md`);
-      const text = await res.text();
+      const text = await fetchPostMarkdown(post.slug);
       setMarkdown(text);
-    } catch {
-      setMarkdown("Post matni topilmadi.");
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Post matni topilmadi.";
+      setMarkdownError(message);
+      setMarkdown("");
     }
   };
 
@@ -39,13 +49,19 @@ const PostsSection = ({ id }: { id?: string }) => {
     setOpen(false);
     setSelectedPost(null);
     setMarkdown("");
+    setMarkdownError(null);
   };
 
   return (
     <Box id={id} sx={styles.sectionWrapper}>
       <Typography variant="h4" sx={styles.sectionTitle}>
-        So‘nggi yangiliklar
+        So'nggi yangiliklar
       </Typography>
+      {postsError && (
+        <Alert severity="error" sx={{ mb: 2 }}>
+          {postsError}
+        </Alert>
+      )}
       <Grid container spacing={4}>
         {posts.map(post => (
           <Grid key={post.id}>
@@ -88,7 +104,11 @@ const PostsSection = ({ id }: { id?: string }) => {
           {selectedPost && (
             <>
               <Typography variant="h5" mb={2}>{selectedPost.title}</Typography>
-              <MarkdownRenderer markdown={markdown} />
+              {markdownError ? (
+                <Alert severity="error">{markdownError}</Alert>
+              ) : (
+                <MarkdownRenderer markdown={markdown} />
+              )}
             </>
           )}
         </Box>
