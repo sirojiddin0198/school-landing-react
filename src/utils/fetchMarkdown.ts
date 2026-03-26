@@ -1,14 +1,25 @@
-export const fetchMarkdown = async () => {
-  // posts.json faylini public/posts/posts.json dan o‘qiymiz
-  const response = await fetch("/posts/posts.json");
-  const data = await response.json();
+export interface Post {
+  id: number;
+  title: string;
+  date: string;
+  excerpt: string;
+  image: string;
+  slug: string;
+}
 
-  // Har bir post uchun kerakli ma’lumotlarni shakllantirish
-  return data.map((post: any) => ({
-    title: post.title,
-    date: post.date,
-    excerpt: post.excerpt,
-    image: post.image,
-    filename: post.filename,
-  }));
+export const fetchPosts = async (): Promise<Post[]> => {
+  const response = await fetch("/posts/posts.json");
+  if (!response.ok) {
+    throw new Error(`Failed to fetch posts: ${response.status} ${response.statusText}`);
+  }
+  const data: Post[] = await response.json();
+  return data;
+};
+
+export const fetchPostMarkdown = async (slug: string): Promise<string> => {
+  const response = await fetch(`/posts/${slug}.md`);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch post content: ${response.status} ${response.statusText}`);
+  }
+  return response.text();
 };

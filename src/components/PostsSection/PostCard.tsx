@@ -1,14 +1,6 @@
 import { Grid, Paper, Typography, Box, Button } from "@mui/material";
 import { formatDate } from "../../utils/formatDate";
-
-interface Post {
-  id: number;
-  title: string;
-  date: string;
-  excerpt: string;
-  image: string;
-  slug: string;
-}
+import type { Post } from "../../utils/fetchMarkdown";
 
 interface PostCardProps {
   post: Post;
